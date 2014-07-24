@@ -4,6 +4,7 @@
     "author": "Konrad Kowalski <rootsher@gmail.com>",
     "version": "0.1.0",
     "dependencies": {
-        "express": "4.0.x"
+        "express": "4.0.x",
+        "jade": "1.5.x"
     }
 }
