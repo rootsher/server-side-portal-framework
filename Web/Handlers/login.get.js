@@ -1,5 +1,7 @@
+var getTemplate = require('../../Utils/getTemplate').getTemplate;
+
 function loginGet(deps, params) {
-    params.res.send('Service login get running.');
+	params.res.send(getTemplate('jade', __dirname + '/../Templates/login.jade'));
 }
 
 module.exports.loginGet = loginGet;
