@@ -7,8 +7,8 @@ var WebService = require('../Architecture/WebService').WebService;
 app.use(express.static('Resources'));
 
 var dependencies = {
-    mongo: 'mongo',
-    redis: 'redis'
+	mongo: 'mongo',
+	redis: 'redis'
 };
 
 var webServiceInit = new WebService(new CurrentUser(), dependencies);

@@ -1,10 +1,10 @@
 {
-    "name": "simple-server-side-framework",
-    "descriptions": "Simple server side framework.",
-    "author": "Konrad Kowalski <rootsher@gmail.com>",
-    "version": "0.1.0",
-    "dependencies": {
-        "express": "4.0.x",
-        "jade": "1.5.x"
-    }
+	"name": "simple-server-side-framework",
+	"descriptions": "Simple server side framework.",
+	"author": "Konrad Kowalski <rootsher@gmail.com>",
+	"version": "0.1.0",
+	"dependencies": {
+		"express": "4.0.x",
+		"jade": "1.5.x"
+	}
 }

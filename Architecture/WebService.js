@@ -2,26 +2,26 @@ var PermissionConstructor = require('./PermissionConstructor').PermissionConstru
 
 function WebService(currentUser, dependencies) {
 	this.currentUser = currentUser;
-    this.dependencies = dependencies;
+	this.dependencies = dependencies;
 }
 
 WebService.prototype.run = function (name, allowedTypeAccount, params) {
 	var self = this;
-    var permissionsInit = new PermissionConstructor(allowedTypeAccount, this.currentUser);
+	var permissionsInit = new PermissionConstructor(allowedTypeAccount, this.currentUser);
 
 	return function (req, res) {
-        var webServices;
+		var webServices;
 
-        params.req = req;
-        params.res = res;
-        webServices = require('../ServiceDirectories/Web/Public');
+		params.req = req;
+		params.res = res;
+		webServices = require('../ServiceDirectories/Web/Public');
 
-        if (permissionsInit.check()) {
-            webServices[name].call(undefined, self.dependencies, params);
-        } else {
-            webServices['accessDenied'].call(undefined, self.dependencies, params);
-        }
-    };
+		if (permissionsInit.check()) {
+			webServices[name].call(undefined, self.dependencies, params);
+		} else {
+			webServices['accessDenied'].call(undefined, self.dependencies, params);
+		}
+	};
 };
 
 module.exports.WebService = WebService;
