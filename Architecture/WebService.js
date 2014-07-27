@@ -10,6 +10,8 @@ WebService.prototype.runWrapper = function () {
 	var self = this;
 
 	return function (name, allowedTypeAccount, params) {
+		params = params || {};
+
 		return function (req, res) {
 			params.req = req;
 			params.res = res;
