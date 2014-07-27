@@ -3,7 +3,20 @@ var PermissionConstructor = require('./PermissionConstructor').PermissionConstru
 function WebService(currentUser) {
 	this._currentUser = currentUser;
 	this._dependencies = {};
+	this.runRef = undefined;
 }
+
+WebService.prototype.runWrapper = function () {
+	var self = this;
+
+	return function (name, allowedTypeAccount, params) {
+		return function (req, res) {
+			params.req = req;
+			params.res = res;
+			self.runRef(name, allowedTypeAccount, params);
+		};
+	};
+};
 
 WebService.prototype.run = function (name, allowedTypeAccount, params) {
 	var self = this;
