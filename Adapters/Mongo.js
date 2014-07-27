@@ -1,9 +1,20 @@
 var mongodb = require('mongodb');
 var nodefn = require('when/node');
+var util = require('util');
+
+
+// ### Errors ###
+
+function MongoConnectionError(error) {
+	this.name = 'MongoConnectionError';
+	this.message = error;
+}
+util.inherits(MongoConnectionError, Error);
+
 
 function MongoAdapter() {
-	this.connectURI = 'mongodb://0.0.0.0:27017/';
-	this.databaseName = 'testowa';
+	this._connectURI = 'mongodb://0.0.0.0:27017/';
+	this._databaseName = 'testowa';
 	this.collections = {
 		'users': undefined
 	};
@@ -14,7 +25,7 @@ MongoAdapter.prototype.connect = function () {
 
 	return function (req, res, next) {
 		var MongoClient = mongodb.MongoClient;
-		var promisedConnect = nodefn.call(MongoClient.connect, self.connectURI + self.databaseName);
+		var promisedConnect = nodefn.call(MongoClient.connect, self._connectURI + self._databaseName);
 
 		promisedConnect.done(function (db) {
 			for (var collection in self.collections) {
@@ -22,8 +33,7 @@ MongoAdapter.prototype.connect = function () {
 			}
 			next();
 		}, function (error) {
-			console.log('!!', error);
-			next();
+			throw new MongoConnectionError(error);
 		});
 	};
 };
