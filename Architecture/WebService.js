@@ -23,6 +23,8 @@ WebService.prototype.run = function (name, allowedTypeAccount, params) {
 	var permissionsInit = new PermissionConstructor(allowedTypeAccount, this._currentUser);
 	var webServices = require('../ServiceDirectories/Web/Public');
 
+	params = params || {};
+
 	if (permissionsInit.check()) {
 		webServices[name].call(undefined, self._dependencies, params);
 	} else {
