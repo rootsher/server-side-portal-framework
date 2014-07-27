@@ -3,17 +3,35 @@ var app = express();
 
 var CurrentUser = require('../Architecture/CurrentUser').CurrentUser;
 var WebService = require('../Architecture/WebService').WebService;
+var MongoAdapter = require('../Adapters/Mongo').MongoAdapter;
+var RedisAdapter = require('../Adapters/Redis').RedisAdapter;
 
-app.use(express.static('Resources'));
+var mongodb = new MongoAdapter();
+var redis = new RedisAdapter();
 
-var dependencies = {
-	mongo: 'mongo',
-	redis: 'redis'
+var webServiceRun;
+
+var runService = function (name, allowedTypeAccount, params) {
+	return function (req, res) {
+		params.req = req;
+		params.res = res;
+		webServiceRun(name, allowedTypeAccount, params);
+	};
 };
 
-var webServiceInit = new WebService(new CurrentUser(), dependencies);
+app.use(mongodb.connect());
+app.use(redis.connect());
 
-var runService = webServiceInit.run.bind(webServiceInit);
+app.use(function (req, res, next) {
+	var webServiceInit = new WebService(new CurrentUser());
+
+	webServiceInit.addDependency('mongo', mongodb);
+	webServiceInit.addDependency('redis', redis);
+	webServiceRun = webServiceInit.run.bind(webServiceInit);
+	next();
+});
+
+app.use(express.static('Resources'));
 
 
 // ### Routing ###
