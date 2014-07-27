@@ -1,5 +1,15 @@
 var redis = require('redis');
 
+
+// ### Errors ###
+
+function RedisConnectionError(error) {
+	this.name = 'RedisConnectionError';
+	this.message = error;
+}
+util.inherits(RedisConnectionError, Error);
+
+
 function RedisAdapter() {
 	this.client = redis.createClient();
 }
@@ -9,7 +19,7 @@ RedisAdapter.prototype.connect = function () {
 
 	return function (req, res, next) {
 		self.client.on('error', function (error) {
-			console.log('Error:', error);
+			throw new RedisConnectionError(error);
 		});
 		next();
 	};
