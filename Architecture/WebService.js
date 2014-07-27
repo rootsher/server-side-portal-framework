@@ -10,6 +10,7 @@ WebService.prototype.runWrapper = function () {
 	var self = this;
 
 	return function (name, allowedTypeAccount, params) {
+		allowedTypeAccount = allowedTypeAccount || [];
 		params = params || {};
 
 		return function (req, res) {
@@ -21,11 +22,12 @@ WebService.prototype.runWrapper = function () {
 };
 
 WebService.prototype.run = function (name, allowedTypeAccount, params) {
+	allowedTypeAccount = allowedTypeAccount || [];
+	params = params || {};
+
 	var self = this;
 	var permissionsInit = new PermissionConstructor(allowedTypeAccount, this._currentUser);
 	var webServices = require('../ServiceDirectories/Web/Public');
-
-	params = params || {};
 
 	if (permissionsInit.check()) {
 		webServices[name].call(undefined, self._dependencies, params);
