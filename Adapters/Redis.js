@@ -1,4 +1,5 @@
 var redis = require('redis');
+var util = require('util');
 
 
 // ### Errors ###
