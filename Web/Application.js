@@ -33,7 +33,7 @@ app.use(express.static('Resources'));
 
 // ### Routing ###
 
-app.get('/login', runService('loginGet', [0, 1, 2, 3], { param1: 'value1', param2: 'value2' }));
+app.get('/login', runService('loginGet', [0, 1, 2, 3]));
 app.get('/secret', runService('secretGet', [2, 3], { param1: 'value1', param2: 'value2' }));
 
 
