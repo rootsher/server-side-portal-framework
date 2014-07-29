@@ -10,6 +10,7 @@
 		"mongodb": "1.4.x",
 		"redis": "0.11.x",
 		"when": "3.4.x",
-		"util": "0.10.x"
+		"util": "0.10.x",
+		"node-uuid": "1.4.x"
 	}
 }
