@@ -27,12 +27,12 @@ MongoAdapter.prototype.connect = function () {
 		var MongoClient = mongodb.MongoClient;
 		var promisedConnect = nodefn.call(MongoClient.connect, self._connectURI + self._databaseName);
 
-		promisedConnect.done(function (db) {
+		return promisedConnect.then(function (db) {
 			for (var collection in self.collections) {
 				self.collections[collection] = db.collection(collection);
 			}
 			next();
-		}, function (error) {
+		}).catch(function (error) {
 			throw new MongoConnectionError(error);
 		});
 	};
