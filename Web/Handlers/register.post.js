@@ -1,4 +1,5 @@
 var getTemplate = require('../../Utils/getTemplate').getTemplate;
+var when = require('when');
 var nodefn = require('when/node');
 var util = require('util');
 
@@ -8,21 +9,6 @@ var util = require('util');
 function SystemMessage(content) {
 	this.content = content;
 }
-
-
-// ### Errors ###
-
-function MongoFindUserError(error) {
-	this.name = 'MongoFindUserError';
-	this.message = error;
-}
-util.inherits(MongoFindUserError, Error);
-
-function MongoInsertUserError(error) {
-	this.name = 'MongoInsertUserError';
-	this.message = error;
-}
-util.inherits(MongoInsertUserError, Error);
 
 
 function registerPost(deps, params) {
@@ -42,11 +28,11 @@ function registerPost(deps, params) {
 
 	return promisedFind.then(function (result) {
 		if (result > 0) {
-			return new SystemMessage('User exists.');
+			return when.reject(new SystemMessage('User exists.'));
 		}
 
 		if (data.password !== data.repeatPassword) {
-			return new SystemMessage('Passwords is not equal.');
+			return when.reject(new SystemMessage('Passwords is not equal.'));
 		}
 
 		var documentData = {};
@@ -58,14 +44,17 @@ function registerPost(deps, params) {
 
 		var promisedInsert = nodefn.call(usersCollection.insert.bind(usersCollection, documentData));
 		return promisedInsert.then(function (insertData) {
-			return new SystemMessage('User created.');
+			return when.resolve(new SystemMessage('User created.'));
 		}).catch(function (error) {
-			throw new MongoInsertUserError(error);
+			throw when.reject(new SystemMessage(error));
 		});
+	}).then(function (resolveMessage) {
+		return resolveMessage;
+	}).catch(function (rejectMessage) {
+		return rejectMessage;
 	}).then(function (message) {
 		params.res.send(getTemplate('jade', __dirname + '/../Templates/register.jade', { content: message.content }));
-	}).catch(function (error) {
-		throw new MongoFindUserError(error);
+		return when.resolve(true);
 	});
 }
 
