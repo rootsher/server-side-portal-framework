@@ -1,14 +1,7 @@
 var getTemplate = require('../../Utils/getTemplate').getTemplate;
+var SystemMessage = require('../../Shared/Types/SystemMessage').SystemMessage;
 var when = require('when');
 var nodefn = require('when/node');
-var util = require('util');
-
-
-// ### Helpers ###
-
-function SystemMessage(content) {
-	this.content = content;
-}
 
 
 function registerPost(deps, params) {
