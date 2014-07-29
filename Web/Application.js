@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var CurrentUser = require('../Architecture/CurrentUser').CurrentUser;
@@ -29,11 +30,17 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static('Resources'));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 // ### Routing ###
 
 app.get('/login', runService('loginGet', [0, 1, 2, 3]));
+app.post('/login', runService('loginPost', [0, 1, 2, 3]));
+
+app.get('/register', runService('registerGet', [0, 1, 2, 3]));
+app.post('/register', runService('registerPost', [0, 1, 2, 3]));
+
 app.get('/secret', runService('secretGet', [2, 3], { param1: 'value1', param2: 'value2' }));
 
 
