@@ -10,6 +10,7 @@ WebService.prototype.runWrapper = function () {
 	var self = this;
 
 	return function (name, allowedTypeAccount, params) {
+		name = name || 'accessDenied';
 		allowedTypeAccount = allowedTypeAccount || [];
 		params = params || {};
 
