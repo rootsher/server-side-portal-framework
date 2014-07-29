@@ -46,7 +46,7 @@ function registerPost(deps, params) {
 		return promisedInsert.then(function (insertData) {
 			return when.resolve(new SystemMessage('User created.'));
 		}).catch(function (error) {
-			throw when.reject(new SystemMessage(error));
+			return when.reject(new SystemMessage(error));
 		});
 	}).then(function (resolveMessage) {
 		return resolveMessage;
