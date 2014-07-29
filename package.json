@@ -5,6 +5,7 @@
 	"version": "0.1.0",
 	"dependencies": {
 		"express": "4.0.x",
+		"body-parser": "1.5.x",
 		"jade": "1.5.x",
 		"mongodb": "1.4.x",
 		"redis": "0.11.x",
