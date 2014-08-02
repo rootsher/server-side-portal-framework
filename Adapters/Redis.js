@@ -13,6 +13,7 @@ util.inherits(RedisConnectionError, Error);
 
 function RedisAdapter() {
 	this.client = redis.createClient();
+	this.client.setMaxListeners(0);
 }
 
 RedisAdapter.prototype.connect = function () {
