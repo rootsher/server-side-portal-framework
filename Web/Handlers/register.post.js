@@ -1,5 +1,5 @@
 var getTemplate = require('../../Utils/getTemplate').getTemplate;
-var SystemMessage = require('../../Shared/Types/SystemMessage').SystemMessage;
+var SystemNotification = require('../../Shared/Types/SystemNotification').SystemNotification;
 var when = require('when');
 var nodefn = require('when/node');
 
@@ -21,11 +21,11 @@ function registerPost(deps, params) {
 
 	return promisedFind.then(function (result) {
 		if (result > 0) {
-			return when.reject(new SystemMessage('User exists.'));
+			return when.reject(new SystemNotification('error', 'User exists.'));
 		}
 
 		if (data.password !== data.repeatPassword) {
-			return when.reject(new SystemMessage('Passwords is not equal.'));
+			return when.reject(new SystemNotification('error', 'Passwords is not equal.'));
 		}
 
 		var documentData = {};
@@ -38,14 +38,12 @@ function registerPost(deps, params) {
 
 		var promisedInsert = nodefn.call(usersCollection.insert.bind(usersCollection, documentData));
 		return promisedInsert.then(function (insertData) {
-			return when.resolve(new SystemMessage('User created.'));
+			return when.resolve(new SystemNotification('notification', 'User created.'));
 		}).catch(function (error) {
-			return when.reject(new SystemMessage(error));
+			return when.reject(new SystemNotification('error', error));
 		});
-	}).then(function (resolveMessage) {
-		return resolveMessage;
 	}).catch(function (rejectMessage) {
-		return rejectMessage;
+		return when.resolve(rejectMessage);
 	}).then(function (message) {
 		params.res.send(getTemplate('jade', __dirname + '/../Templates/register.jade', { content: message.content }));
 		return when.resolve(true);
