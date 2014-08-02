@@ -38,7 +38,9 @@ WebService.prototype.run = function (name, allowedTypeAccount, params) {
 };
 
 WebService.prototype.addDependency = function (name, value) {
-	this._dependencies[name] = value;
+	if (!this._dependencies[name]) {
+		this._dependencies[name] = value;
+	}
 };
 
 module.exports.WebService = WebService;
