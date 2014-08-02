@@ -34,6 +34,7 @@ function registerPost(deps, params) {
 				documentData[field] = data[field];
 			}
 		}
+		documentData.accountType = 1;
 
 		var promisedInsert = nodefn.call(usersCollection.insert.bind(usersCollection, documentData));
 		return promisedInsert.then(function (insertData) {
