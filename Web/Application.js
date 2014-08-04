@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -18,21 +20,18 @@ var redis = new RedisAdapter();
 
 app.use(mongodb.connect());
 app.use(redis.connect());
-
 app.use(cookieParser());
-
 app.use(requestContext.checkCookie(mongodb, redis));
-
 app.use(function (req, res, next) {
-	// Add things to dependencies in everything service.
-	webServiceInit.addDependency('mongo', mongodb);
-	webServiceInit.addDependency('redis', redis);
-	next();
+    // Add things to dependencies in everything service.
+    webServiceInit.addDependency('mongo', mongodb);
+    webServiceInit.addDependency('redis', redis);
+    next();
 });
 
 app.use(function (req, res, next) {
-	webServiceInit.runRef = webServiceInit.run.bind(webServiceInit);
-	next();
+    webServiceInit.runRef = webServiceInit.run.bind(webServiceInit);
+    next();
 });
 
 app.use(express.static('Resources'));

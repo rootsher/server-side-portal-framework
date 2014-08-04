@@ -1,17 +1,22 @@
 {
-	"name": "simple-server-side-framework",
-	"descriptions": "Simple server side framework.",
-	"author": "Konrad Kowalski <rootsher@gmail.com>",
-	"version": "0.1.0",
-	"dependencies": {
-		"express": "4.0.x",
-		"body-parser": "1.5.x",
-		"jade": "1.5.x",
-		"mongodb": "1.4.x",
-		"redis": "0.11.x",
-		"when": "3.4.x",
-		"util": "0.10.x",
-		"node-uuid": "1.4.x",
-		"cookie-parser": "1.3.x"
-	}
+    "name": "simple-server-side-framework",
+    "descriptions": "Simple server side framework.",
+    "author": "Konrad Kowalski <rootsher@gmail.com>",
+    "version": "0.1.1",
+    "respository": {
+        "type": "git",
+        "url": "https://github.com/rootsher/server-side-portal-framework"
+    },
+    "main": "Web/Application.js",
+    "dependencies": {
+        "express": "4.0.x",
+        "body-parser": "1.5.x",
+        "jade": "1.5.x",
+        "mongodb": "1.4.x",
+        "redis": "0.11.x",
+        "when": "3.4.x",
+        "util": "0.10.x",
+        "node-uuid": "1.4.x",
+        "cookie-parser": "1.3.x"
+    }
 }

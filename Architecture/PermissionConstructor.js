@@ -1,18 +1,16 @@
+'use strict';
+
 function PermissionConstructor(allowedTypeAccount, user) {
-	this._currentUser = user;
-	this._allowedTypeAccount = allowedTypeAccount;
+    this._currentUser = user;
+    this._allowedTypeAccount = allowedTypeAccount;
 }
 
 PermissionConstructor.prototype.check = function () {
-	var self = this;
+    var self = this;
 
-	if (this._allowedTypeAccount.some(function (type) {
-		return type === self._currentUser.getTypeAccount();
-	})) {
-		return true;
-	} else {
-		return false;
-	}
+    return !!this._allowedTypeAccount.some(function (type) {
+        return type === self._currentUser.getTypeAccount();
+    });
 };
 
 module.exports.PermissionConstructor = PermissionConstructor;
