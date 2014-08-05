@@ -14,17 +14,11 @@ var ACCOUNT_TYPES = {
 };
 
 function CurrentUser() {
-    // 0 - guest, 1 - user, 2 - admin, 3 - root
-    this._typeAccount = ACCOUNT_TYPES.GUEST; // default 0
+    this.account = {
+        accountType: ACCOUNT_TYPES.GUEST,
+        email: undefined
+    };
 }
-
-CurrentUser.prototype.getTypeAccount = function () {
-    return this._typeAccount;
-};
-
-CurrentUser.prototype.setTypeAccount = function (typeID) {
-    this._typeAccount = typeID;
-};
 
 CurrentUser.prototype.checkCookie = function (mongo, redis) {
     var self = this;
@@ -38,7 +32,7 @@ CurrentUser.prototype.checkCookie = function (mongo, redis) {
             }
             var usersCollection = mongo.collections.users;
             if (userID === null) {
-                self.setTypeAccount(ACCOUNT_TYPES.GUEST);
+                self.account.accountType = ACCOUNT_TYPES.GUEST;
             }
             var promisedFind = nodefn.call(usersCollection.find({
                 _id: new BSON.ObjectID(userID)
@@ -48,7 +42,7 @@ CurrentUser.prototype.checkCookie = function (mongo, redis) {
                 if (userData.length === 0) {
                     return when.reject('Invalid userID.');
                 }
-                self.setTypeAccount(userData[0].accountType || ACCOUNT_TYPES.GUEST);
+                self.account = userData[0] || self.account;
                 return when.resolve();
             }).catch(function (content) {
                 throw new Error(content);

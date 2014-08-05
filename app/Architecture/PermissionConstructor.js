@@ -9,7 +9,7 @@ PermissionConstructor.prototype.check = function () {
     var self = this;
 
     return !!this._allowedTypeAccount.some(function (type) {
-        return type === self._currentUser.getTypeAccount();
+        return type === self._currentUser.account.accountType;
     });
 };
 
