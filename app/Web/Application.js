@@ -21,12 +21,14 @@ var redis = new RedisAdapter();
 app.use(mongodb.connect());
 
 app.use(cookieParser());
+
 app.use(requestContext.checkCookie(mongodb, redis));
 
 app.use(function (req, res, next) {
     // Add things to dependencies in everything service.
     webServiceInit.addDependency('mongo', mongodb);
     webServiceInit.addDependency('redis', redis);
+    webServiceInit.addDependency('requestContext', requestContext);
     next();
 });
 
