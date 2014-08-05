@@ -19,7 +19,6 @@ function RedisAdapter() {
     this.client.on('error', function (error) {
        throw new RedisConnectionError(error); 
     });
-    this.client.setMaxListeners(0);
 }
 
 RedisAdapter.prototype.connect = function () {
