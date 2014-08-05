@@ -12,19 +12,21 @@ function RedisConnectionError(error) {
 }
 util.inherits(RedisConnectionError, Error);
 
+// ### Adapter class ###
 
 function RedisAdapter() {
     this.client = redis.createClient();
+    this.client.on('error', function (error) {
+       throw new RedisConnectionError(error); 
+    });
     this.client.setMaxListeners(0);
 }
 
 RedisAdapter.prototype.connect = function () {
     var self = this;
 
+    // Function retained for backwards compatibility to prevent API breakage. Feel free to refactor and remove.
     return function (req, res, next) {
-        self.client.on('error', function (error) {
-            throw new RedisConnectionError(error);
-        });
         next();
     };
 };
