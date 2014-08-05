@@ -6,10 +6,11 @@ Simple server-side framework for routing management. Based on SOA and simple per
 
 ```bash
 $ git clone git@github.com:rootsher/server-side-portal-framework.git
-$ cd server-side-portal-framework/Web
+$ cd server-side-portal-framework
 $ npm install # install all dependencies
 $ redis-server & # run database server of Redis
 $ mongod & # run database server of MongoDB
+$ cd app/Web
 $ node Application.js 8888
 ```
 
