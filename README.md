@@ -6,11 +6,11 @@ Simple server-side framework for routing management. Based on SOA and simple per
 
 ```bash
 $ git clone git@github.com:rootsher/server-side-portal-framework.git
-$ cd server-side-portal-framework
+$ cd server-side-portal-framework/Web
 $ npm install # install all dependencies
 $ redis-server & # run database server of Redis
 $ mongod & # run database server of MongoDB
-$ node Web/Application.js 8888
+$ node Application.js 8888
 ```
 
 ## TODOs
@@ -23,11 +23,11 @@ $ node Web/Application.js 8888
  - [ ] One class in one file, ex. /Adapters/Mongo.js move error to another file
  - [ ] Use layout (definition of all page in one file, not in each of views)
  - [ ] Apply Twittstrap or Bootstrap to better design.
- - [ ] Set some constants of user types in `CurrentUser`.
+ - [x] Set some constants of user types in `CurrentUser`.
  - [ ] Write a lot of comments.
  - [ ] Use camelCase style on name of files and directories
- - [ ] Move application to one folder `app/`.
- - [ ] Create directory `test` with specs and write them!
+ - [x] Move application to one folder `app/`.
+ - [x] Create directory `test` with specs and write them!
  - [ ] Create UML diagrams for all architecture of application in directory `docs`.
 
 ## License

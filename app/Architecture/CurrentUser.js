@@ -5,9 +5,17 @@ var nodefn = require('when/node');
 var mongodb = require('mongodb');
 var BSON = mongodb.BSONPure;
 
+
+var ACCOUNT_TYPES = {
+    GUEST: 0,
+    USER: 1,
+    ADMIN: 2,
+    ROOT: 3
+};
+
 function CurrentUser() {
     // 0 - guest, 1 - user, 2 - admin, 3 - root
-    this._typeAccount = 0; // default 0
+    this._typeAccount = ACCOUNT_TYPES.GUEST; // default 0
 }
 
 CurrentUser.prototype.getTypeAccount = function () {
@@ -30,7 +38,7 @@ CurrentUser.prototype.checkCookie = function (mongo, redis) {
             }
             var usersCollection = mongo.collections.users;
             if (userID === null) {
-                self.setTypeAccount(0);
+                self.setTypeAccount(ACCOUNT_TYPES.GUEST);
             }
             var promisedFind = nodefn.call(usersCollection.find({
                 _id: new BSON.ObjectID(userID)
@@ -40,7 +48,7 @@ CurrentUser.prototype.checkCookie = function (mongo, redis) {
                 if (userData.length === 0) {
                     return when.reject('Invalid userID.');
                 }
-                self.setTypeAccount(userData[0].accountType || 0);
+                self.setTypeAccount(userData[0].accountType || ACCOUNT_TYPES.GUEST);
                 return when.resolve();
             }).catch(function (content) {
                 throw new Error(content);
