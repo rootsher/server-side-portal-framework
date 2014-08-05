@@ -21,13 +21,4 @@ function RedisAdapter() {
     });
 }
 
-RedisAdapter.prototype.connect = function () {
-    var self = this;
-
-    // Function retained for backwards compatibility to prevent API breakage. Feel free to refactor and remove.
-    return function (req, res, next) {
-        next();
-    };
-};
-
 module.exports.RedisAdapter = RedisAdapter;
