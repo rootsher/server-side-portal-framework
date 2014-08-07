@@ -25,19 +25,17 @@ function MongoAdapter() {
 MongoAdapter.prototype.connect = function () {
     var self = this;
 
-    return function (req, res, next) {
-        var MongoClient = mongodb.MongoClient;
-        var promisedConnect = nodefn.call(MongoClient.connect, self._connectURI + self._databaseName);
+    var MongoClient = mongodb.MongoClient;
+    var promisedConnect = nodefn.call(MongoClient.connect, this._connectURI + this._databaseName);
 
-        return promisedConnect.then(function (db) {
-            Object.keys(self.collections).forEach(function (collectionName) {
-                self.collections[collectionName] = db.collection(collectionName);
-            });
-            next();
-        }).catch(function (error) {
-            throw new MongoConnectionError(error);
+    return promisedConnect.then(function (db) {
+        Object.keys(self.collections).forEach(function (collectionName) {
+            self.collections[collectionName] = db.collection(collectionName);
         });
-    };
+        return self;
+    }).catch(function (error) {
+        throw new MongoConnectionError(error);
+    });
 };
 
 module.exports.MongoAdapter = MongoAdapter;
