@@ -20,7 +20,7 @@ $ node Application.js 8888
  - [x] Enable `strict mode`
  - [ ] Print warning when number of params is not correct.
  - [ ] Set default path `/`.
- - [ ] Move routing to Router not in Application.
+ - [x] Move routing to Router not in Application.
  - [ ] One class in one file, ex. /Adapters/Mongo.js move error to another file
  - [ ] Use layout (definition of all page in one file, not in each of views)
  - [ ] Apply Twittstrap or Bootstrap to better design.
