@@ -2,17 +2,7 @@
 
 var mongodb = require('mongodb');
 var nodefn = require('when/node');
-var util = require('util');
-
-
-// ### Errors ###
-
-function MongoConnectionError(error) {
-    this.name = 'MongoConnectionError';
-    this.message = error;
-}
-util.inherits(MongoConnectionError, Error);
-
+var MongoConnectionError = require('../Shared/Errors/MongoConnectionError').MongoConnectionError;
 
 function MongoAdapter() {
     this._connectURI = 'mongodb://0.0.0.0:27017/';
