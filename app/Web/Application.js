@@ -65,13 +65,16 @@ function app() {
             app[route.method](route.path, runService(route.service, route.permissions, route.params));
         });
 
-        app.listen(process.argv[2]);
+        app.listen(process.argv[2] || 8888);
     });
 }
 
 manager.runModules([mongodb, redis, app]).done(function applicationCompositionFinished(results) {
     console.log('** Composition finished! The application is now running.');
-    console.log('** Server listening on port ' + process.argv[2] + '.');
+    console.log('** Server listening on port ' + (process.argv[2] || 8888) + '.');
+    if (!process.argv[2]) {
+        console.warn('&& If you want to listening on own port, please add port as argv[2].');
+    }
 }, function handleCompositionError(error) {
     console.error('!! Composition error:', error);
 });
