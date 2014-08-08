@@ -18,10 +18,10 @@ $ node Application.js 8888
 
  - [x] Use spaces instead tabs
  - [x] Enable `strict mode`
- - [ ] Print warning when number of params is not correct.
- - [ ] Set default path `/`.
+ - [x] Print warning when number of params is not correct.
+ - [x] Set default path `/`.
  - [x] Move routing to Router not in Application.
- - [ ] One class in one file, ex. /Adapters/Mongo.js move error to another file
+ - [x] One class in one file, ex. /Adapters/Mongo.js move error to another file
  - [ ] Use layout (definition of all page in one file, not in each of views)
  - [ ] Apply Twittstrap or Bootstrap to better design.
  - [x] Set some constants of user types in `CurrentUser`.
