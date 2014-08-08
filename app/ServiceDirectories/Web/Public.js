@@ -2,6 +2,8 @@
 
 var path = '../../Web/Handlers/';
 
+module.exports.indexGet = require(path + 'index.get.js').indexGet;
+
 module.exports.loginGet = require(path + 'login.get.js').loginGet;
 module.exports.loginPost = require(path + 'login.post.js').loginPost;
 
